@@ -1,0 +1,27 @@
+name: BUILD
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Build project
+        env:
+          DB_DATABASE: foodbox
+          DB_HOST: db
+          DB_PASSWORD: 111
+          DB_USERNAME: foodbox
+        run: |
+          npm ci
+          npm run build
+      - name: Generate deployment package
+        run: zip -qr package.zip . -x ".git/*" -x ".github/*" -x ".vscode/*"
+
