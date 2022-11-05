@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configs from './configs';
 import { DatabaseModule } from './providers/db/db.module';
+import { AdminModule } from './entities/admin/admin.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { DatabaseModule } from './providers/db/db.module';
       load: [() => configs],
       isGlobal: true,
     }),
-    DatabaseModule
+    DatabaseModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],
